@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streettalk | Live Signal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="nav-dock">
+            <div class="logo">S<span>T</span></div>
+            <nav class="dock-menu">
+                <button class="dock-btn active" id="navHome">🏠</button>
+                <button class="dock-btn" id="navGlobal">🌐</button>
+                <div class="nav-divider"></div>
+                <button class="dock-btn" id="navProfile">👤</button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="street-header">
+                <div class="brand"><h1>Street<span>talk</span></h1></div>
+                <div class="location-pill"><span class="status-dot"></span><span id="locationName">📍 Sector Live</span></div>
+            </header>
+
+            <div id="identityCard" class="glass-card hidden">
+                <h3>Establish Identity</h3>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="usernameInput" placeholder="Enter Handle...">
+                    <button id="saveIdentity" class="shout-action">Sync</button>
+                </div>
+            </div>
+
+            <div class="shout-container">
+                <textarea id="postInput" placeholder="Broadcast a shout..."></textarea>
+                <div class="shout-footer">
+                    <button id="postBtn" class="shout-action">Shout</button>
+                </div>
+            </div>
+
+            <div id="feedStream"></div>
+        </main>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
