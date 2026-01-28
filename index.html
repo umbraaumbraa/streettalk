@@ -3,45 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streettalk | Live Signal</title>
+    <title>Streettalk</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1/index.js"></script>
 </head>
 <body>
-    <div class="app-layout">
+    <div id="mediaModal" class="media-viewer-overlay hidden">
+        <div class="viewer-blur-bg" id="viewerBg"></div>
+        <button class="viewer-close" id="closeViewer">✕</button>
+        <button class="v-nav v-prev" id="prevMedia">‹</button>
+        <div class="v-stage" id="vStage"></div>
+        <button class="v-nav v-next" id="nextMedia">›</button>
+        <div id="vCounter" class="v-counter"></div>
+    </div>
+
+    <div id="settingsModal" class="modal-overlay hidden">
+        <div class="modal-blur-bg" id="settingsBg"></div>
+        <div class="modal-card">
+            <h2>Your Profile </h2>
+            <div id="settingsAvatarPreview" class="large-avatar"></div>
+            <input type="file" id="avatarUpload" accept="image/*" class="hidden">
+            <div class="modal-input-group">
+                <button onclick="document.getElementById('avatarUpload').click()" class="btn-secondary">Change Photo</button>
+                <input type="text" id="setName" placeholder="Display Name" class="styled-input">
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettings" class="post-action-btn">Save Changes</button>
+                <button id="closeSettings" class="btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="app" class="app-layout">
         <aside class="nav-dock">
             <div class="logo">S<span>T</span></div>
-            <nav class="dock-menu">
-                <button class="dock-btn active" id="navHome">🏠</button>
-                <button class="dock-btn" id="navGlobal">🌐</button>
+            <nav class="dock-container">
+                <button class="dock-btn active" title="Feed">🏠</button>
+                <button class="dock-btn" title="Explore">🌐</button>
                 <div class="nav-divider"></div>
-                <button class="dock-btn" id="navProfile">👤</button>
+                <button class="dock-btn" id="openSettings" title="Settings">⚙️</button>
             </nav>
+            <div id="myProfilePic" class="sidebar-avatar-wrap"></div>
         </aside>
 
         <main class="main-content">
-            <header class="street-header">
-                <div class="brand"><h1>Street<span>talk</span></h1></div>
-                <div class="location-pill"><span class="status-dot"></span><span id="locationName">📍 Sector Live</span></div>
+            <header class="view-header">
+                <div>
+                    <h1 class="brand">Streettalk</h1>
+                    <p class="sub-brand">Hear the city breathe.</p>
+                </div>
+                <div class="location-pill"><span class="status-dot"></span><span>Live Feed</span></div>
             </header>
 
-            <div id="identityCard" class="glass-card hidden">
-                <h3>Establish Identity</h3>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="usernameInput" placeholder="Enter Handle...">
-                    <button id="saveIdentity" class="shout-action">Sync</button>
+            <div class="post-composer">
+                <div class="composer-top">
+                    <div id="inputAvatar"></div>
+                    <textarea id="postInput" placeholder="What's the word on the street?"></textarea>
                 </div>
+                <div id="mediaGridPre" class="composer-media-preview hidden"></div>
+                <div class="composer-bottom">
+                    <div class="composer-tools">
+                        <input type="file" id="mediaInput" accept="image/*,video/*" multiple class="hidden">
+                        <button class="tool-btn" id="mediaBtn" title="Attach Media">📷</button>
+                        <button class="tool-btn" id="emojiBtn" title="Add Emoji">😀</button>
+                    </div>
+                    <button id="postBtn" class="post-action-btn">Shout</button>
+                </div>
+                <div id="emojiContainer" class="emoji-popup hidden"><emoji-picker class="dark"></emoji-picker></div>
             </div>
 
-            <div class="shout-container">
-                <textarea id="postInput" placeholder="Broadcast a shout..."></textarea>
-                <div class="shout-footer">
-                    <button id="postBtn" class="shout-action">Shout</button>
-                </div>
+            <div class="feed-filter-bar">
+                <button class="filter-btn active" id="sortNew">Newest</button>
+                <button class="filter-btn" id="sortTop">Top Shouts</button>
             </div>
 
-            <div id="feedStream"></div>
+            <div id="feedStream">
+                <div class="loader-container"><div class="loader-ring"></div></div>
+            </div>
         </main>
     </div>
+
     <script type="module" src="app.js"></script>
 </body>
 </html>
